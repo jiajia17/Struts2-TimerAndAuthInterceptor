@@ -1,0 +1,57 @@
+本实例是struts2如何创建以及如何自定义拦截器的demo
+
+1---
+	去struts2的app文件夹里面找到struts2-blank.war项目解压，然后去web-inf/lib目录下拷贝所有的jar文件
+	这些jar文件就是构建一个基础的struts2项目所必须得jar文件，拷贝完成后放到web项目WebContent/WEB-INF/lib
+	目录下。在lib目录下选中所有拷贝来的jar文件，鼠标右键，build path   添加到build path  ，然后就能在
+	Referenced Libraries目录下看到已经加载了所有的jar文件。
+2---
+	拷贝web.xml 和Struts.xml 到你自己对应的工程目录下。
+	web.xml位置struts2-blank\WEB-INF下			-->WebContent\WEB-INf下
+	struts.xml位置struts2-blank\WEB-INF\src\java  --> 工程src目录下
+3---
+	稍微修改一下刚才拷贝的配置文件。
+	
+	
+	
+----配置action并自定义一个用来计算action执行时间的拦截器。
+step1---test_start.jsp   和web-inf下的test_start_end.jsp
+	TestAction.java
+	TimerInterceptor.java
+	struts.xml
+
+	
+	
+	
+step2---自定义一个用来控制用户访问权限的拦截器(当你登录后如果输入authAction2也会跳转到成功的界面，是因为你
+		在访问authAction1登录的时候使用session注入的登录信息，而在输入authAction2访问的时候，我们
+		使用自定义的拦截器来获取session是否有值，有值就直接跳转到登录的界面，从而实现了访问权限的校验，而且
+		此处使用的是domianModel形式获取的值。
+		test_start.jsp   和web-inf下的test_start_end.jsp
+		AuthAction.java
+		AuthInterceptor.java
+		struts.xml
+		User.java	
+
+step3---测试前后台传递参数的方法以及显示	
+		前台传参到后台的方式有三种。1-属性的方式，2-javabean形式也叫demianModel形式，3-ModelDriven形式
+		其中12两种方法是不同的地方就是2中是在action里面声明private User user;并且提供user的getter和setter方法
+		1中
+		--1，直接在action中写属性，属性名称随便起，只要提交的jsp能够对应起来就行，然后取值的jsp页面也是一样的名字。
+		--2，在action中要有getter setter方法
+		2中
+		--1，需要写实体类User getset方法
+		--2，提供对象属性，不需要实例化，在当前action里面提供getset方法   --private User user;
+		--3，提交数据的jsp里面的字段属性得写成  实体类.属性的方式
+		--4，显示数据的时候需要写成<s:property value="user.userName"/>
+		3中不同：
+		--1，需要写实体类student，
+		--2，action需要实现ModelDriven接口，并且指定泛型Object
+		--3，提供实例化对象  private Student student=new Student();
+		--4，重写getModel()方法，返回student
+		--5，提供execute()方法。
+		--6，对应的jsp页面name属性是实体类的属性名字，成功页面的jsp取值的时候也是实体类属性名<s:property value="name"/><br/>
+		
+	
+	
+	

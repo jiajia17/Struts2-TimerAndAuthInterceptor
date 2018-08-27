@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
+    <package name="default" namespace="/" extends="struts-default" >
+    	<!--  step1的配置文件 -->
+    
+    	<interceptors>
+    		<interceptor name="timerInterceptor" class="com.jinan.www.interceptor.TimerInterceptor"></interceptor>
+   			<!-- 这是step2的注册拦截器并且自定义拦截器栈部分 -->
+   			<interceptor name="authInterceptor" class="com.jinan.www.interceptor.AuthInterceptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authInterceptor"></interceptor-ref>
+			</interceptor-stack>
+			<!-- step2 end -->
+    	</interceptors>
+    
+		<action name="testAction1" class="com.jinan.www.actions.TestAction" method="execute">
+		<!-- 如果使用了自定义的拦截器，那么系统默认的拦截器就不会生效了。所以要显示的调用一下 -->
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<interceptor-ref name="timerInterceptor"></interceptor-ref>
+			<result name="success">/WEB-INF/jsp/test_start_end.jsp</result>
+		</action>
+		<action name="testAction2" class="com.jinan.www.actions.TestAction" method="login">
+			<result name="success">/WEB-INF/jsp/test_start_end.jsp</result>
+			<result name="login">/test_start.jsp</result>
+		</action>
+		<!-- step1  end -->
+		<!-- step2 start -->
+		<action name="authAction" class="com.jinan.www.actions.AuthAction" method="execute">
+			<result name="success">/WEB-INF/jsp/test_start_end.jsp</result>
+			<result name="login">/test_start.jsp</result>
+		</action>
+		
+			<!-- 注册拦截器 -->
+    		<!-- 注册自己的拦截器，同时定义了拦截器栈 -->
+		
+	
+		<action name="authAction2">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success">/WEB-INF/jsp/test_start_end.jsp</result>
+			<result name="login">/test_start.jsp</result>
+		</action>
+		
+		<action name="paramAction" class="com.jinan.www.actions.ParamAction">
+			<result name="success">/WEB-INF/jsp/test_start_param.jsp</result>
+		</action>
+		
+		<!-- step2 end -->
+    </package>
+
+
+    <!-- Add packages here -->
+
+</struts>
