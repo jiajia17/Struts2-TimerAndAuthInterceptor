@@ -110,7 +110,10 @@ setp8----数据校验
 			xwork-core-2.3.32.jar
 			/com/opensymphony/xwork2/validator/validators/default.xml
 		自定义校验器
-
+			在actionsupport中定义一个方法volidate()方法
+			对于之前介绍的一个Action类响应多个请求时候对数据校验的不同形态，在我们自定义校验器中也是可以实现的，只是定义的方法名有所区别，例如：
+				响应login处理逻辑的自定义校验方法命名为：validateLogin()
+				响应regist处理逻辑的自定义校验方法命名为：validateRegist()
 step9---文件上传下载
 
 		
