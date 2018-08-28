@@ -29,7 +29,7 @@ public class TestAction extends ActionSupport {
 	}
 	
 	public  String login() throws Exception {
-		//这个方法就不是简单的返回了。我们需要使用三种获取前台参数方法中的一种来获取前台数据，根据
+		//这个方法就不是简单的返回了。我们需要使用三种获取前台参数方法中的一种来获取前台数据(属性形式)，根据
 		//前台数据是否符合我们登录的条件，然后返回不同的字符串，跳转到不同的页面。
 		if("admin".equals(username)&&"1".equals(password)) {
 			ActionContext actionContext = ActionContext.getContext();

@@ -51,7 +51,68 @@ step3---测试前后台传递参数的方法以及显示
 		--4，重写getModel()方法，返回student
 		--5，提供execute()方法。
 		--6，对应的jsp页面name属性是实体类的属性名字，成功页面的jsp取值的时候也是实体类属性名<s:property value="name"/><br/>
-		
+		含：
+		test_start.jsp test_start_param.jsp
+		ParamAction.java
+		struts.xml	
 	
+step4---Convention插件的约定	struts2-convention-plugin-2.3.32.jar
+
+
+step5---struts2标签
+
+step6---namespace
+
+step7---类型转换 自定义类型转换器
+		其实就是类似于使用domianModel形式从前台往后台传递参数的时候，需要在前台页面中使用name=user.username的形式传递参数的情况。
+		类型转换器：
+			局部范围类型的转换器，	actionName-conversion.properties 例如f：LoginAction-conversion.properties
+						内容：// 属性名=转换器类的位置
+							walker=MyPackage.WalkerConvert 创建的该文件应该和对应的Action位于同一个包下
+			全局范围内注册一个类型转换器，xwork-conversion.properties
+						内容：// 属性名=转换器类的位置
+							walker=MyPackage.WalkerConvert
+			使用注解注册一个类型转换器
+		类型转换的错误处理 ：
+			框架为我们在拦截器栈中注册了一个拦截器：convertionError，该拦截器专门用于拦截类型转换异常，
+			一旦该拦截器拦截到异常产生则会封装所有的异常信息到ActionContext中，然后跳转到input处理结果页面，
+			所以一般我们在为Action添加处理结果的时候会为其添加一个input页面
+			我们只需要为Action添加一个input的处理结果即可，当发生类型转换失败的时候就会封装错误信息并跳转到input页面。
+
+setp8----数据校验
+		
+		命名：且一般一个校验文件只服务一个Action   <ActionName>-validation.xml
+		两种校验配置风格 
+			1.用field元素来配置的数据校验规则
+				该文件有个根元素 validators ，使用field 作为一级子元素，该元素将对应于Action实例中实际的属性，它有一个name属性，
+				该属性就是用于指定此field元素配置的是Action的哪个实例属性，有几个实例属性就应该有几个field元素。
+				我们由field元素可以定位到Action实例中具体的某个属性，使用field-validator元素
+				为给属性指定校验器（Struts默认提供的检验器，具体有关内置的校验器后文详细介绍），
+				param 元素用于指定校验的参数，message元素用于指定不符合校验规则时输出的信息。
+			2.使用validator取代field作为一级子元素，用fieldName属性指定对应的Action实例属性（不常用）
+			
+				test-validation-start.jsp	test-validation-end.jsp input.jsp
+				TestValidationAction.java TestValidationAction-validation.xml
+				
+		为不同Action处理逻辑配置不同的校验配置
+			同一个action有多个不同的处理逻辑，例如某个action既可以处理用户注册请求也可以处理用户登录请求，但是对于这两种截然不同的请求，
+			我们的数据校验却不尽相同,两个页面login和register，虽然提交的action名称不一样，但是却是同一个action.java文件
+			此时我们需要创建两个数据校验文件，一个用于校验请求login，一个用于校验请求regist。规则：<ActionName>-<ActionAliasName具体的action名>-validation.xml
+			TestValidation1Action-testValidation1login-validation.xml
+			TestValidation1Action-testValidation1register-validation.xml
+			TestValidation1Action.java
+			test-validation1-login.jsp test-validation1-register.jsp
+		 	test-validation1-end.jsp input.jsp
+		 	
+			 
+			 
+		详解struts2框架内置的几种校验器 
+			xwork-core-2.3.32.jar
+			/com/opensymphony/xwork2/validator/validators/default.xml
+		自定义校验器
+
+step9---文件上传下载
+
+		
 	
 	

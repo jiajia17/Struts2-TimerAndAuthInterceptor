@@ -54,9 +54,27 @@
 		</action>
 		
 		<!-- step2 end -->
+		
+		
+		
+		<!-- step8 start  -->
+		<action name="testValidation" class="com.jinan.www.actions.TestValidationAction">
+			<result name="success">/WEB-INF/jsp/test-validation-end.jsp</result>
+			<result name="input">/WEB-INF/jsp/input.jsp</result>
+		</action>
+		<action name="testValidation1login" class="com.jinan.www.actions.TestValidation1Action">
+			<result name="success">/WEB-INF/jsp/test-validation1-end.jsp</result>
+			<result name="input">/WEB-INF/jsp/input.jsp</result>
+		</action>
+		<action name="testValidation1register" class="com.jinan.www.actions.TestValidation1Action">
+			<result name="success">/WEB-INF/jsp/test-validation1-end.jsp</result>
+			<result name="input">/WEB-INF/jsp/input.jsp</result>
+		</action>
+		<!-- step8 end  -->
     </package>
 
 
+	
     <!-- Add packages here -->
 
 </struts>

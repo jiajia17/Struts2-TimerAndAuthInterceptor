@@ -16,6 +16,9 @@
     </filter-mapping>
 
     <welcome-file-list>
+    	<welcome-file>test-validation1-register.jsp</welcome-file>
+    	<welcome-file>test-validation1-login.jsp</welcome-file>
+        <welcome-file>test-validation-start.jsp</welcome-file>
         <welcome-file>test_start.jsp</welcome-file>
     </welcome-file-list>
 
