@@ -33,7 +33,20 @@ public class TestValidation1Action extends ActionSupport {
 	public void setPassword2(Integer password2) {
 		this.password2 = password2;
 	}
-	
+	/*
+	 *下面这个方法是自定义校验器
+	 *
+	 *响应login处理逻辑的自定义校验方法命名为：validateLogin()
+	 *响应regist处理逻辑的自定义校验方法命名为：validateRegist()
+	 */
+	public void validate(){
+		if(username.isEmpty()){
+			addFieldError("name", "自定义校验器，用户名不能为空");
+		}
+		if(!password1.equals(password2)){
+			addFieldError("pass1","自定义校验器，两次输入的密码不一致");
+		}
+	}
 	
 	
 
