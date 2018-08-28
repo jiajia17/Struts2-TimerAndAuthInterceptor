@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//Apache Struts//XWork Validator 1.0.2//EN"
+        "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<!-- 第一种写法 -->
+<!--  
+<validators>
+ 		<field name="name">
+ 			<field-validator type="requiredstring">
+ 				<param name="trim">true</param>
+ 				<message>姓名不能为空</message>
+ 			</field-validator>
+ 		</field>
+ 		<field name="age">
+ 			<field-validator type="requiredstring">
+ 				<param name="trim">true</param>
+ 				<message>年龄不能为空</message>
+ 			</field-validator>
+ 		</field>
+</validators>
+-->
+<!-- 第二种写法 -->
+<validators>
+	<validator type="requiredstring">
+		<param name="fieldName">name</param>
+		<param name="trim">true</param>
+		<message>姓名不能为空</message>
+	</validator>
+	<validator type="requiredstring">
+		<param name="fieldName">age</param>
+		<param name="trim">true</param>
+		<message>年龄不能为空</message>
+	</validator>
+</validators>
